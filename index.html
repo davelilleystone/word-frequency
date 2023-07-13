@@ -6,6 +6,24 @@
     <title>Word Frequency</title>
     <script src="./script.js" defer></script>
     <link rel="stylesheet" href="./main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,500&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body></body>
+  <body>
+    <main class="wrapper">
+      <h1>Word Frequency Calculator</h1>
+      <div class="error-message hidden">Please enter some text!</div>
+      <textarea
+        class="text-input 
+        placeholder="Type or paste text here "
+        maxlength="2048"
+      ></textarea>
+      <div class="btn-wrapper"><button>Get Word Frequency</button></div>
+      <table></table>
+    </main>
+  </body>
 </html>
