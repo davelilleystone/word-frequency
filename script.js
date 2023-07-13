@@ -1,9 +1,9 @@
 // const str = `Calculating ...........  ! as as %%% and the frequency of words in a block of text is a technique which has various uses in algorithms such as searching, sorting, and semantic analysis. The objective of the Word Frequency app is count the frequency!!! of words in a block of text and create a tabular display of each unique word in the text along with its frequency, in descending order by frequency.`;
 
 const str = 't';
+const table = document.querySelector('table');
 
-const splitStr = str.split(' ');
-
+// test for punctuation marks
 const puncTest = (word) => {
   return word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
 };
@@ -41,3 +41,26 @@ const sortArr = (freqArr) => {
     })
     .reverse();
 };
+
+const getData = (str) => {
+  const splitStr = str.split(' ');
+  const filtered = filterArr(splitStr);
+  const freqArr = getWordFreq(filtered);
+  return sortArr(freqArr);
+};
+
+console.log(getData(str));
+
+const createTableHeader = () => {
+  const headerText = ['Word', 'Frequency'];
+  const thead = table.createTHead();
+  const row = thead.insertRow();
+  for (const item of headerText) {
+    const th = document.createElement('th');
+    const text = document.createTextNode(item);
+    th.appendChild(text);
+    row.appendChild(th);
+  }
+};
+
+createTableHeader();
