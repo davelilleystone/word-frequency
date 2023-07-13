@@ -1,26 +1,17 @@
-// const str = `Calculating ...........  ! as as %%% and the frequency of words in a block of text is a technique which has various uses in algorithms such as searching, sorting, and semantic analysis. The objective of the Word Frequency app is count the frequency!!! of words in a block of text and create a tabular display of each unique word in the text along with its frequency, in descending order by frequency.`;
+//TODO - RegEx needs to handle numbers better, 6.5% becomes 65 for example. Maybe even filter out numbers as they are not words?
 
-const str = `Millions of public sector workers, including teachers, police and junior doctors, are to be offered pay rises between 5%-7%, the government says.
+const str = `For populating the table we will follow a similar approach but this time we need to iterate over every object in the array of mountains. And while we're inside the for...of loop we will create a new row for every item.`;
 
-Police and prison officers will receive a 7% pay rise, while teachers and junior doctors will get a 6.5% and 6% rise respectively.
-
-Prime Minister Rishi Sunak said he had accepted recommendations made by the pay review bodies "in full".
-
-He said the rises would not be funded by borrowing more or increasing taxes.
-
-He added that the offer was "final" and further industrial action would not change that decision, saying: "There will be no more talks on pay. We will not negotiate again on this year's settlements and no amount of strikes will change our decision." Following the announcement, the education unions said they would now put the offer to their members with a recommendation to accept the pay award, and said the deal would allow the strikes to be called off.
-
-Mr Sunak said the pay awards in the education department would be fully funded, but did not set out details how it would be achieved. Over the past year, rising prices have prompted public sector workers to ask for pay rises matching or exceeding the rate of inflation which currently stands at 8.7%. Disputes over salary have led to a series of strikes hitting schools and hospitals.`;
-
-// const str = 't';
 const table = document.querySelector('table');
+const btn = document.querySelector('button');
+const errMessage = document.querySelector('.error-message');
 
 // test for punctuation marks
 const puncTest = (word) => {
   return word.replace(/[.,\/#!"$%\^&\*;:{}=\-_`~()]/g, '');
 };
 
-// remove blanks and standalone punctuation
+// remove blanks, new line characters and standalone punctuation
 const filterArr = (strArr) => {
   return strArr
     .filter((word) => {
@@ -55,8 +46,8 @@ const sortArr = (freqArr) => {
 };
 
 const getData = (str) => {
-  str2 = str.replace(/(\r\n|\n|\r)/gm, ' ');
-  const splitStr = str2.split(' ');
+  text = str.replace(/(\r\n|\n|\r)/gm, ' ');
+  const splitStr = text.split(' ');
   const filtered = filterArr(splitStr);
   console.log(filtered);
   const freqArr = getWordFreq(filtered);
@@ -75,7 +66,7 @@ const createTableHeader = () => {
   }
 };
 
-const createTable = () => {
+const createTable = (str) => {
   const data = getData(str);
   for (const el of data) {
     const row = table.insertRow();
@@ -87,5 +78,25 @@ const createTable = () => {
   }
 };
 
-createTableHeader();
-createTable();
+const displayTable = () => {
+  const textInput = document.querySelector('.text-input').value;
+  if (textInput.length === 0) {
+    if (errMessage.classList.contains('hidden')) {
+      errMessage.classList.remove('hidden');
+    }
+    table.innerHTML = '';
+    return;
+  } else {
+    if (!errMessage.classList.contains('hidden')) {
+      errMessage.classList.add('hidden');
+    }
+    table.innerHTML = '';
+    createTableHeader();
+    createTable(textInput);
+  }
+};
+
+btn.addEventListener('click', displayTable);
+
+// createTableHeader();
+// createTable();
