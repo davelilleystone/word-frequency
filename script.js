@@ -1,6 +1,6 @@
 //TODO - RegEx needs to handle numbers better, 6.5% becomes 65 for example. Maybe even filter out numbers as they are not words?
 
-const str = `For populating the table we will follow a similar approach but this time we need to iterate over every object in the array of mountains. And while we're inside the for...of loop we will create a new row for every item.`;
+//TODO - refcator to remove global variables
 
 const table = document.querySelector('table');
 const btn = document.querySelector('button');
@@ -84,15 +84,18 @@ const displayTable = () => {
     if (errMessage.classList.contains('hidden')) {
       errMessage.classList.remove('hidden');
     }
-    table.innerHTML = '';
+    table.style.display = 'none';
+
     return;
   } else {
     if (!errMessage.classList.contains('hidden')) {
       errMessage.classList.add('hidden');
     }
+
     table.innerHTML = '';
-    createTableHeader();
     createTable(textInput);
+    createTableHeader();
+    table.style.display = 'table';
   }
 };
 
